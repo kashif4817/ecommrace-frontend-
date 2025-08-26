@@ -11,12 +11,15 @@ const Contact = () => {
   const token = localStorage.getItem("token"); // get token from localStorage
 
   const decoded = jwtDecode(token);
-  console.log("decoded", decoded);
-  if (decoded.roleName === 'user') {
-    console.log("Enter in if");
-    return <Navigate to="/home/non-contact" replace />;
-  } else {
+  // console.log("decoded", decoded);
+  // if (decoded.roleName === 'user') {
+  //   console.log("Enter in if");
+  //   return <Navigate to="/home/non-contact" replace />;
+  // } else {
 
+  // useeffects
+  useEffect(() => {
+    console.log("Enter in useEffect");
 
     const fetchProducts = async () => {
       try {
@@ -27,13 +30,14 @@ const Contact = () => {
           }
         });
         const result = await response.json();
-
+        console.log("result",result)
         // const decoded = jwtDecode(token);
 
         // console.log(decoded);
 
         if (response.ok) {
           setProducts(result.data);
+          console.log("products",products)
           // products.length === 0 ? toast("No products found") : toast('Products loaded successfully');
         } else {
           console.error(result.message)
@@ -44,14 +48,16 @@ const Contact = () => {
       }
     };
     fetchProducts();
-  }
+  }, [])
+
+  // }
+
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
       const token = localStorage.getItem('token');
-      console.log('token', token);
       const response = await fetch(`http://localhost:5000/api/products/${id}`, {
         method: "DELETE",
         headers: {
@@ -74,7 +80,7 @@ const Contact = () => {
   return (
     <div className="p-6">
       {products.length === 0 ? (
-        <p p className="text-center text-gray-500">No products found.</p>
+        <p className="text-center text-gray-500">No products found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
@@ -84,7 +90,13 @@ const Contact = () => {
                 alt={product.name}
                 className="w-full h-48 object-cover rounded-md"
               />
-              <h2 className="text-xl font-bold mt-2">{product.name}</h2>
+              <h2 className="text-xl   font-bold mt-2">{product.name}</h2>
+
+              <h2 className="text-xl bg-amber-200 font-bold mt-2">COLOR:{product.categoryId.color[0] ? `${product.categoryId.color[0]}` : null}</h2>
+              <h2 className="text-xl font-bold mt-2">SIZE:{product.categoryId.size ? `${product.categoryId.size[0]}` : null}</h2>
+              <h2 className="text-xl font-bold mt-2">DOSCOUNT:{product.categoryId.discountedItem ? `true` : 'false'}</h2>
+              <h2 className="text-xl font-bold mt-2">HOT:{product.categoryId.hotItem ? `true` : "false"}</h2>
+
               <p className="text-gray-500">{product.category}</p>
               <p className="mt-2 overflow-hidden">{product.description}</p>
               {/* <p className="mt-1 font-semibold">Stock: {product.stock}</p> */}

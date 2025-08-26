@@ -17,9 +17,9 @@ const Products = () => {
 
 
   const submitHandler = async (data) => {
+    console.log("Data from form ::::::::",data)
     try {
       const token = localStorage.getItem('token');
-      console.log('token', token);
       const res = await fetch("http://localhost:5000/api/products", {
         method: "POST",
         headers: {
@@ -32,7 +32,7 @@ const Products = () => {
 
       if (res.ok) {
         toast.success("Product Added!")
-        reset();
+        // reset();
       } else {
         toast.error("Faild to add product");
       }
@@ -134,6 +134,73 @@ const Products = () => {
             </p>
           )}
         </div>
+        <h1 className="text-center">----------Optional Fields---------</h1>
+        {/* //is hot */}
+        <div>
+          <label className="block font-medium mb-1">Is hot Item</label>
+          <input
+            type="checkbox"
+            value={true}
+            {...register("ishot")}
+          />
+          {errors.ishot && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.ishot.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1">Discounted Item?</label>
+          <input
+            type="checkbox"
+            value={true}
+            {...register("discountedItem")}
+          />
+          {errors.discounted && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.discounted.message}
+            </p>
+          )}
+        </div>
+
+        {/* //color */}
+        <div>
+          <label className="block font-medium mb-1">Color</label>
+          <input
+            type="text"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            {...register("color")}
+          />
+          {errors.size && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.size.message}
+            </p>
+          )}
+        </div>
+
+
+        //color
+        <div>
+          <label className="block font-medium mb-1">Size</label>
+          <input
+            type="number"
+            step="0.01"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            {...register("size", { min: { value: 0, message: "Minmum value is 0" } })}
+          />
+          {errors.size && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.size.message}
+            </p>
+          )}
+        </div>
+
+
+
+
+
+
 
         {/* Submit Button */}
         <button
