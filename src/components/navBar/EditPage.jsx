@@ -12,6 +12,7 @@ const EditPage = () => {
     register,
     handleSubmit,
     reset,
+    errors,
     formState: { isSubmitting },
   } = useForm();
 
@@ -44,6 +45,7 @@ const EditPage = () => {
 
   // Update product
   const onSubmit = async (formData) => {
+    console.log(" updated formData", formData)
     try {
       const res = await fetch(`http://localhost:5000/api/products/${id}`, {
         method: "PUT",
@@ -57,7 +59,7 @@ const EditPage = () => {
       const result = await res.json();
 
       if (res.ok) {
-     
+
         toast.info(" Product updated successfully");
         navigate("/home");
       } else {
@@ -135,6 +137,47 @@ const EditPage = () => {
               type="text"
               {...register("image", { required: true })}
               className="w-full border border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 rounded px-4 py-2"
+            />
+          </div>
+
+          <h1 className="text-center">----------Optional Fields---------</h1>
+          {/* //is hot */}
+          <div>
+            <label className="block font-medium mb-1">Is hot Item</label>
+            <input
+              type="checkbox"
+              value={true}
+              {...register("ishot")}
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">Discounted Item?</label>
+            <input
+              type="checkbox"
+              value={true}
+              {...register("discounted")}
+            />
+          </div>
+
+          {/* //color */}
+          <div>
+            <label className="block font-medium mb-1">Color</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+              {...register("color")}
+            />
+          </div>
+
+
+          <div>
+            <label className="block font-medium mb-1">Size</label>
+            <input
+              type="number"
+              step="0.01"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+              {...register("size", { min: { value: 0, message: "Minmum value is 0" } })}
             />
           </div>
 
