@@ -7,19 +7,16 @@ import { jwtDecode } from 'jwt-decode';
 const Contact = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token"); // get token from localStorage
-
+  const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
-  // console.log("decoded", decoded);
+  
+//
   // if (decoded.roleName === 'user') {
-  //   console.log("Enter in if");
+//
   //   return <Navigate to="/home/non-contact" replace />;
   // } else {
 
-  // useeffects
   useEffect(() => {
-    console.log("Enter in useEffect");
 
     const fetchProducts = async () => {
       try {
@@ -30,18 +27,10 @@ const Contact = () => {
           }
         });
         const result = await response.json();
-        console.log("result",result)
-        // const decoded = jwtDecode(token);
-
-        // console.log(decoded);
-
         if (response.ok) {
           setProducts(result.data);
-          console.log("products",products)
-          // products.length === 0 ? toast("No products found") : toast('Products loaded successfully');
         } else {
           console.error(result.message)
-          // toast.error(result.message || "Failed to load products");
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -49,9 +38,7 @@ const Contact = () => {
     };
     fetchProducts();
   }, [])
-
   // }
-
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
@@ -64,7 +51,6 @@ const Contact = () => {
           "Authorization": `Bearer ${token}`
         }
       });
-
       const result = await response.json();
       if (response.ok) {
         setProducts(products.filter(item => item._id !== id));
