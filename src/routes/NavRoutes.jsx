@@ -9,6 +9,7 @@ import Cart from '../components/navBar/Cart';
 import MainHomePage from '../components/MainHomePage';
 import Orders from '../components/sideBar/Orders';
 import Settings from '../components/sideBar/Settings';
+import Size from '../components/sideBar/Size';
 import Logout from '../components/sideBar/Logout';
 import NotFound from '../pages/NotFound';
 import LikedProducts from '../components/sideBar/LikedProducts';
@@ -66,6 +67,7 @@ const NavRoutes = () => {
                 <Route path="settings" element={<Settings />} />
                 <Route path="logout" element={<Logout />} />
                 <Route path='edit/:id' element={<EditPage />} />
+                <Route path='size' element={<Size />} />
             </Route>
 
             {/* 404 page */}

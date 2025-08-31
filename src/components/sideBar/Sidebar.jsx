@@ -72,7 +72,7 @@ const Sidebar = () => {
 
     return (
         <div className="h-screen w-56 bg-gray-900 text-white p-4 fixed shadow-lg">
-            <h2 className="text-xl font-bold text-blue-500 mb-6">My Dashboard</h2>
+            <h2 className="text-xl font-bold text-blue-500 mb-6">Filters </h2>
             <ul className="space-y-4 text-sm font-medium">
                 {/* 🔥 Add 'end' prop to home and use correct paths */}
                 <li>
@@ -82,17 +82,22 @@ const Sidebar = () => {
                 </li>
                 <li>
                     <NavLink to="/home/orders" className={linkStyle}>
-                        <FaShoppingBag /> Orders
+                        <FaShoppingBag /> Filter by name?discripition
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/home/likes" className={linkStyle}>
-                        <FaHeart /> Favourites
+                        <FaHeart /> Filter by Category
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/home/settings" className={linkStyle}>
-                        <FaCog /> Settings
+                        <FaCog /> Filter by color
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/home/size" className={linkStyle}>
+                        <FaCog /> Filter by size
                     </NavLink>
                 </li>
                 <li>
